@@ -1,0 +1,4 @@
+1. Install all npm dependencies using npm i.
+2. Run the compilation script in order to compile the smart contracts and output
+the JSON interface into the build directory (two files - tender and tenderFactory will be created)
+2. Run the deployment script in order to deploy the smart contract to the Ethereum blockchain

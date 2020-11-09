@@ -12,7 +12,7 @@ const compiledFactory = require("./build/tenderFactory.json");
 //A web3 provider is the missing block that indicates which node the web3 instance should interact with
 const provider = new HDWalletProvider(
   "salad issue fish reopen gold test globe problem elbow hour claw phone",
-  "https://rinkeby.infura.io/v3/f15c170790644d87be404f2e35c6993e"
+  "https://rinkeby.infura.io/v3/f6d453a1bc224de8bbcfb9711387b884"
 );
 
 const web3 = new Web3(provider);
