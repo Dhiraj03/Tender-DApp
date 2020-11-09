@@ -12,9 +12,6 @@ export default () => {
         <Link route="/fulfilled">
           <a className="item">View fulfilled Tenders</a>
         </Link>
-        <Link route="/tenders/new">
-          <a className="item">+</a>
-        </Link>
       </Menu.Menu>
     </Menu>
   );

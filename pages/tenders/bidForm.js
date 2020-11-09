@@ -14,8 +14,9 @@ class BidNew extends Component {
   };
 
   onSubmit = async event => {
+    //prevents routing to some other page (which is default action)
     event.preventDefault();
-
+    
     const tender = Tender(this.props.address);
     const { bidAmount, description } = this.state;
     this.setState({ loading: true, errorMessage: "" });
@@ -33,7 +34,6 @@ class BidNew extends Component {
 
     static async getInitialProps(props) {
         const {address} = props.query;
-
         return { address };
     }
     

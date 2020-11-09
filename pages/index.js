@@ -11,6 +11,9 @@ class TenderIndex extends Component {
     const tenders = await factory.methods.getDeployedTenders().call();
     return { tenders: tenders };
   }
+  /*Creates a array containing all relevant attributes of tender cards
+    to be displayed
+  */
   renderTenders() {
     const items = this.props.tenders.map(address => {
       return {
@@ -28,6 +31,7 @@ class TenderIndex extends Component {
 
   render() {
     return (
+      //Layout is a custom tag created in components/layout
       <Layout>
         <div>
           <Link route="/tenders/new">

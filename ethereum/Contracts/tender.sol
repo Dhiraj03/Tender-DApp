@@ -14,7 +14,8 @@ contract tenderFactory {
     }
 }
 
-contract Tender{
+contract Tender
+{
     bool public complete;
     string public data;
     address public manager;
