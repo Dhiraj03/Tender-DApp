@@ -20,7 +20,7 @@ if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
   web3 = new _web2.default(window.web3.currentProvider);
 } else {
   // We are in the server OR the user is not running MetaMask
-  var provider = new _web2.default.providers.HttpProvider("https://rinkeby.infura.io/v3/f6d453a1bc224de8bbcfb9711387b884");
+  var provider = new _web2.default.providers.HttpProvider("https://ropsten.infura.io/v3/005ba097b4154b6cbdf76a3e4f9e7a6e");
   web3 = new _web2.default(provider);
 }
 // const getProvider = async () => {
