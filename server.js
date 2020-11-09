@@ -1,3 +1,4 @@
+//Used to start the server
 const { createServer } = require("http");
 const next = require("next");
 const app = next({

@@ -1,5 +1,5 @@
 const routes = require("next-routes")();
-
+//Used to declare the routing table of the application
 routes
   .add("/tenders/new", "/tenders/new")
   .add("/tenders/:address", "tenders/show")
