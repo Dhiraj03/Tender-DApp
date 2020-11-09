@@ -38,7 +38,7 @@ describe('Tenders', () => {
 
     it('manager is set properly', async () =>{
         const manager = await tender.methods.manager().call();
-        assert.equal(accounts[0],manager);
+        assert.strictEqual(accounts[0],manager);
     });
     
 });

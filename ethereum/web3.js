@@ -7,7 +7,7 @@ if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
 } else {
   // We are in the server OR the user is not running metamask
   const provider = new Web3.providers.HttpProvider(
-    "https://rinkeby.infura.io/v3/f15c170790644d87be404f2e35c6993e"
+    "https://rinkeby.infura.io/v3/f6d453a1bc224de8bbcfb9711387b884"
   );
   web3 = new Web3(provider);
 }
@@ -16,7 +16,6 @@ const getProvider = async () => {
 };
 
 getProvider();
-
 /* window.web3.currentProvider assumes that MetaMask has
   automatically injected web3 into the page
 */
