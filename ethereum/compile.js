@@ -11,7 +11,6 @@ fs.removeSync(buildPath);
 const tenderPath = path.resolve(__dirname, "Contracts", "tender.sol");
 const source = fs.readFileSync(tenderPath, "utf8");
 const output = solc.compile(source, 1).contracts;
-
 fs.ensureDirSync(buildPath);
 
 //For every contract that was compiled, a separate file is created to store the JSON interface
