@@ -1,58 +1,55 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { Form, Button, Input, Message } from "semantic-ui-react";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
 import { Router } from "../../routes";
 
-class TenderNew extends Component {
-  state = {
+const TenderNew = () => {
+  const [state, setState] = useState({
     description: "",
     errorMessage: "",
     loading: false
-  };
+  });
 
-  onSubmit = async event => {
+  const onSubmit = async event => {
     event.preventDefault();
-    this.setState({ loading: true, errorMessage: "" });
+    setState({ ...state, loading: true, errorMessage: "" });
     try {
       const accounts = await web3.eth.getAccounts();
       await factory.methods
-        .createTender(this.state.description)
+        .createTender(state.description)
         .send({
           from: accounts[0]
         });
 
       Router.pushRoute("/");
     } catch (err) {
-      this.setState({ errorMessage: err.message });
+      setState({ ...state, errorMessage: err.message });
     }
-    this.setState({ loading: false });
+    setState({ ...state, loading: false });
   };
-  render() {
-    return (
-      <Layout>
-        <h3>Float A Tender!</h3>
-        <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
-          <Form.Field>
-            <label>Requirements and description of the project</label>
-            <Input
-              value={this.state.description}
-              onChange={event =>
-                this.setState({ description: event.target.value })
-              }
-            />
-          </Form.Field>
-          <Message error header="Oops!" content={this.state.errorMessage} />
-          <Button loading={this.state.loading} primary>
-            Create!
-          </Button>
-        </Form>
-      </Layout>
-    );
-  }
 
-  
-}
+  return (
+    <Layout>
+      <h3>Float A Tender!</h3>
+      <Form onSubmit={onSubmit} error={!!state.errorMessage}>
+        <Form.Field>
+          <label>Requirements and description of the project</label>
+          <Input
+            value={state.description}
+            onChange={event =>
+              setState({ ...state, description: event.target.value })
+            }
+          />
+        </Form.Field>
+        <Message error header="Oops!" content={state.errorMessage} />
+        <Button loading={state.loading} primary>
+          Create!
+        </Button>
+      </Form>
+    </Layout>
+  );
+};
 
 export default TenderNew;

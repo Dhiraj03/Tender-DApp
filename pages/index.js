@@ -1,21 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import factory from "../ethereum/factory";
 import { Card, Button, Menu } from "semantic-ui-react";
 import { Link } from "../routes";
 import Layout from "../components/Layout";
 
+const TenderIndex = ({ tenders }) => {
 
-class TenderIndex extends Component {
-  
-  static async getInitialProps() {
-    const tenders = await factory.methods.getDeployedTenders().call();
-    return { tenders: tenders };
-  }
   /*Creates a array containing all relevant attributes of tender cards
     to be displayed
   */
-  renderTenders() {
-    const items = this.props.tenders.map(address => {
+  const renderTenders = () => {
+    const items = tenders.map(address => {
       return {
         header: address,
         description: (
@@ -27,29 +22,31 @@ class TenderIndex extends Component {
       };
     });
     return <Card.Group items={items} />;
-  }
+  };
 
-  render() {
-    return (
-      //Layout is a custom tag created in components/layout
-      <Layout>
-        <div>
-          <Link route="/tenders/new">
-            <a>
-              <Button
-                content="Float a Tender"
-                icon="add circle"
-                primary
-                floated="right"
-              />
-            </a>
-          </Link>
-          {this.renderTenders()}
-        </div>
-      </Layout>
-    );
-  }
-}
+  return (
+    //Layout is a custom tag created in components/layout
+    <Layout>
+      <div>
+        <Link route="/tenders/new">
+          <a>
+            <Button
+              content="Float a Tender"
+              icon="add circle"
+              primary
+              floated="right"
+            />
+          </a>
+        </Link>
+        {renderTenders()}
+      </div>
+    </Layout>
+  );
+};
+
+export const getInitialProps = async () => {
+  const tenders = await factory.methods.getDeployedTenders().call();
+  return { tenders: tenders };
+};
 
 export default TenderIndex;
-

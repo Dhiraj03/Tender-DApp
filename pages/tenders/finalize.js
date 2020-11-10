@@ -1,67 +1,70 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Message } from "semantic-ui-react";
 import Tender from "../../ethereum/tender";
 import web3 from "../../ethereum/web3";
 import { Router } from "../../routes";
 import Layout from '../../components/Layout';
 
-class FinalizeBid extends Component {
-  state = {
+const FinalizeBid = ({ address }) => {
+
+  const [state, setState] = useState({
     index: "",
     value: "",
     errorMessage: "",
     loading: false
-  };
-  static async getInitialProps(props) {
-    const { address } = props.query;
+  });
 
-    return { address };
-  }
-  onSubmit = async event => {
+
+  const onSubmit = async event => {
     event.preventDefault();
-    const tender = Tender(this.props.address);
-    this.setState({ loading: true });
+    const tender = Tender(address);
+    setState({ ...state, loading: true });
     try {
       const accounts = await web3.eth.getAccounts();
 
-      await tender.methods.finalizeBid(this.state.index).send({
+      await tender.methods.finalizeBid(state.index).send({
         from: accounts[0],
-        value: web3.utils.toWei(this.state.value, "ether")
+        value: web3.utils.toWei(state.value, "ether")
       });
-      Router.replaceRoute(`/tenders/${this.props.address}`);
+      Router.replaceRoute(`/tenders/${address}`);
     } catch (err) {
-      this.setState({ errorMessage: err.message });
+      setState({ ...state, errorMessage: err.message });
     }
-    this.setState({ loading: false, value: "" });
+    setState({ ...state, loading: false, value: "" });
   };
 
-  render() {
-    return (
-      <Layout>
-        <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
-          <Form.Field>
-            <label>Amount to contribute</label>
-            <Input
-              label="ether"
-              labelPosition="right"
-              value={this.state.value}
-              onChange={event => this.setState({ value: event.target.value })}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Index of the bid chosen</label>
-            <Input
-              value={this.state.index}
-              onChange={event => this.setState({ index: event.target.value })}
-            />
-          </Form.Field>
-          <Message error header="Oops!" content={this.state.errorMessage} />
-          <Button loading={this.state.loading} primary>
-            Contribute!
-          </Button>
-        </Form>
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout>
+      <Form onSubmit={onSubmit} error={!!state.errorMessage}>
+        <Form.Field>
+          <label>Amount to contribute</label>
+          <Input
+            label="ether"
+            labelPosition="right"
+            value={state.value}
+            onChange={event => setState({ ...state, value: event.target.value })}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Index of the bid chosen</label>
+          <Input
+            value={state.index}
+            onChange={event => setState({ ...state, index: event.target.value })}
+          />
+        </Form.Field>
+        <Message error header="Oops!" content={state.errorMessage} />
+        <Button loading={state.loading} primary>
+          Contribute!
+        </Button>
+      </Form>
+    </Layout>
+  );
+};
+
+export const getInitialProps = async (props) => {
+  const { address } = props.query;
+
+  return { address };
+};
+
 export default FinalizeBid;
