@@ -1,110 +1,114 @@
-
-pragma solidity^0.4.17;
-
+pragma solidity ^0.4.17;
 contract tenderFactory {
-    address[] public deployedTenders;
+    Tender[] public deployedTenders;
 
-    function createTender(string description) public {
-      address newTender = new Tender(description, msg.sender);
-      deployedTenders.push(newTender);
+    function createTender(string memory description) public {
+    Tender newTender = new Tender(description, msg.sender);
+    deployedTenders.push(newTender);
     }
 
-    function getDeployedTenders() public view returns(address[]){
+    function getDeployedTenders() public view returns(Tender[] memory){
         return deployedTenders;
     }
 }
 
-contract Tender
-{
-    bool public complete;
-    string public data;
+contract Tender{
+
+    string public description;
     address public manager;
+    
     struct Bid {
         address  bidder;
         uint bidAmount;
         string bid;
     }
-    struct hiddenBid {
-        uint ID;
-        uint bidAmount;
-        string bid;
-    }
+    enum State {ONGOING, CONCLUDED}
+    State tenderState;
+        
     Bid[] private bids;
-    hiddenBid[] public hiddenBids;
     Bid public winner;
     uint public winIndex;
     
     modifier restricted()
     {
-        require(msg.sender==manager);
+        require(msg.sender==manager
+        );
         _;
     }
 
-    function Tender(string description, address creator) public
+    modifier notManager()
+    {
+        require(msg.sender!=manager
+        );
+        _;
+    }
+
+    modifier checkConcluded()
+    {
+        require(tenderState == State.CONCLUDED
+        );
+        _;
+    }
+
+    modifier checkOngoing()
+    {
+        require(tenderState == State.ONGOING
+        );
+        _;
+    }
+
+
+    function Tender(string memory inputDescription, address creator) public
     {
         manager = creator;
-        data = description;
+        description = inputDescription;
     }
 
-
-    function getBidSummary(uint index) public returns (address, uint, string) {
-        return (
-            bids[index].bidder,
-            bids[index].bidAmount,
-            bids[index].bid
-        );
-    }
-
-    
-
-    function makeBid(uint bidAmount, string desc) public
-    {  require(!(msg.sender==manager));
-       require(!complete);
+    function makeBid(uint bidAmount, string memory desc) public checkOngoing notManager
+    {  
         Bid memory newBid = Bid({
             bidder : msg.sender,
             bidAmount : bidAmount,
             bid : desc
         });
         bids.push(newBid);
-        hiddenBid memory newhiddenBid = hiddenBid({
-            ID : bids.length,
-            bidAmount : bidAmount,
-            bid : desc
-        });
-        hiddenBids.push(newhiddenBid);
     }
 
-    function finalizeBid(uint index) public payable  {
-        require(!complete);
-        require(msg.sender==manager);
+    
+    function showBid(uint index) public view checkConcluded returns(address bidder, uint bidAmount, string memory bid){
+        return (
+        bids[index-1].bidder,
+        bids[index-1].bidAmount,
+        bids[index-1].bid
+        );
+    }
+
+    function getBidSummary(uint index) public view checkOngoing restricted
+    returns (uint bidAmount, string memory bid) {
+        return (
+            bids[index-1].bidAmount,
+            bids[index-1].bid
+        );
+    }
+
+    
+    function awardTender(uint index) public  restricted checkOngoing {
         winner = bids[index];
         winIndex = index;
         winner.bidder.transfer(winner.bidAmount);
-        msg.sender.transfer(this.balance);
-        complete = true;   
+        tenderState = State.CONCLUDED;   
     }
 
 
-
-    function getSummary() public view returns (string, address, uint) {
-        return ( data,
+    function getTenderDetails() public view returns (string memory tenderDescription, address managerAddress, uint bidsLength) {
+        return ( description,
         manager, 
         bids.length
         );
     }
 
-   
-
     function getBidCount() public view returns (uint) {
         return bids.length;
     }
 
-    function verify() public  {
-      require(msg.sender==manager);
-    }
-
-
 }
-
-
-
