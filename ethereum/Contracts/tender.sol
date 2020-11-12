@@ -117,4 +117,17 @@ contract Tender{
         return bids.length;
     }
 
+    function getTenderState() public view returns (string)
+    {
+        if(tenderState == State.ONGOING)
+         return "Ongoing";
+        else 
+         return "Concluded";
+    }
+
+    function verifyManager() public view
+    {
+        require(msg.sender == manager);
+    }
+
 }

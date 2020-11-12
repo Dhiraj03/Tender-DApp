@@ -30,7 +30,9 @@ const TenderShow = ({
     setState({ ...state, loading: true });
     try {
       const accounts = await web3.eth.getAccounts();
-      //add auth part here
+      await tender.methods.verifyManager().send({
+        from: accounts[0]
+      });
       router.push(`/tenders/${address}/viewbids/${count}`);
     } catch (err) {
       setState({ ...state, errorMessage: err.message });
@@ -74,38 +76,38 @@ const TenderShow = ({
         <Grid.Row>
           <Grid.Column width={10}>{renderCards()}</Grid.Column>
         </Grid.Row>
-        <Grid.Column width={10}>
-          
-          { state.errorMessage && <Message error header="Oops!" content={state.errorMessage} />}
-          <Button onClick={onSubmit} disabled={isComplete} primary loading={state.loading}>
+        <Grid.Column width={2}>
+          {state.errorMessage && (
+            <Message error header="Oops!" content={state.errorMessage} />
+          )}
+          <Button
+            onClick={onSubmit}
+            disabled={isComplete}
+            primary
+            loading={state.loading}
+          >
             View!
           </Button>
         </Grid.Column>
-        <Grid.Row>
-          <Grid.Column width={5}>
-            <Link route={`/tenders/${address}/bid`}>
-              <a>
-                <Button disabled={isComplete} primary>
-                  Make a Bid!
-                </Button>
-              </a>
-            </Link>
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <Link route={`/tenders/${address}/finalize`}>
-              <a>
-                <Button disabled={isComplete} primary>
-                  Finalize the Winning Bid!
-                </Button>
-              </a>
-            </Link>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Button onClick={onClick} primary>
-            View all details of bids!
-          </Button>
-        </Grid.Row>
+        <Grid.Column width={3}>
+          <Link route={`/tenders/${address}/bid`}>
+            <a>
+              <Button disabled={isComplete} primary>
+                Make a Bid!
+              </Button>
+            </a>
+          </Link>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Link route={`/tenders/${address}/finalize`}>
+            <a>
+              <Button disabled={isComplete} primary>
+                Finalize the Winning Bid!
+              </Button>
+            </a>
+          </Link>
+        </Grid.Column>
+        <Grid.Row></Grid.Row>
       </Grid>
     </Layout>
   );
