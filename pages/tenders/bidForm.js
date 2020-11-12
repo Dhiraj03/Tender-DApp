@@ -10,10 +10,11 @@ const BidNew = ({ address }) => {
     bidAmount: "",
     description: "",
     loading: false,
-    errorMessage: ''
+    errorMessage: "",
   });
 
   const onSubmit = async (event) => {
+   
     //prevents routing to some other page (which is default action)
     event.preventDefault();
 
@@ -22,10 +23,12 @@ const BidNew = ({ address }) => {
     setState({ ...state, loading: true, errorMessage: "" });
     try {
       const accounts = await web3.eth.getAccounts();
+      
       await tender.methods
         .makeBid(bidAmount, description)
         .send({ from: accounts[0] });
-      Router.pushRoute('/');
+      console.log("test inside");
+      Router.pushRoute(`/tenders/${address}`);
     } catch (err) {
       setState({ ...state, errorMessage: err.message });
     }
@@ -34,18 +37,15 @@ const BidNew = ({ address }) => {
   return (
     <Layout>
       <Link route={`/tenders/${address}`}>
-        <a>
-          Back
-        </a>
+        <a>Back</a>
       </Link>
-
 
       <Form onSubmit={onSubmit} error={!!state.errorMessage}>
         <Form.Field>
           <label>Description</label>
           <Input
             value={state.description}
-            onChange={event =>
+            onChange={(event) =>
               setState({ ...state, description: event.target.value })
             }
           />
@@ -54,21 +54,27 @@ const BidNew = ({ address }) => {
           <label>Bid Amount</label>
           <Input
             value={state.bidAmount}
-            onChange={event =>
+            onChange={(event) =>
               setState({ ...state, bidAmount: event.target.value })
             }
           />
         </Form.Field>
         <Message error header="Oops!" content={state.errorMessage} />
-        <Button primary loading={state.loading} >Create!</Button>
+        <Button primary loading={state.loading}>
+          Submit Bid!
+        </Button>
       </Form>
     </Layout>
   );
 };
 
-export const getInitialProps = async (props) => {
+export const getServerSideProps = async (props) => {
   const { address } = props.query;
-  return { address };
+  return {
+    props: {
+      address
+    }
+  };
 };
 
 export default BidNew;

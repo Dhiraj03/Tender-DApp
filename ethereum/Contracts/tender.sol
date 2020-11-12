@@ -19,13 +19,16 @@ contract Tender{
     
     struct Bid {
         address  bidder;
-        uint bidAmount;
+        uint256 bidAmount;
         string bid;
     }
     enum State {ONGOING, CONCLUDED}
     State tenderState;
-        
+    uint public numberOfBids = 0;
+    uint[] private bidAmounts;
+    uint[] private bidDetails;
     Bid[] private bids;
+    Bid[] public publicBids;
     Bid public winner;
     uint public winIndex;
     
@@ -71,6 +74,8 @@ contract Tender{
             bidAmount : bidAmount,
             bid : desc
         });
+        numberOfBids++;
+        publicBids.push(newBid);
         bids.push(newBid);
     }
 
@@ -82,14 +87,15 @@ contract Tender{
         bids[index-1].bid
         );
     }
+    
 
-    function getBidSummary(uint index) public view checkOngoing restricted
-    returns (uint bidAmount, string memory bid) {
-        return (
-            bids[index-1].bidAmount,
-            bids[index-1].bid
-        );
-    }
+    // function getBidSummary(uint256 index) public view checkOngoing restricted
+    // returns (uint256 bidAmount, string memory bid) {
+    //     return (
+    //         bids[index-1].bidAmount,
+    //         bids[index-1].bid
+    //     );
+    // }
 
     
     function awardTender(uint index) public  restricted checkOngoing {

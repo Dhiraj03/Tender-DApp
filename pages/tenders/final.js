@@ -8,11 +8,9 @@ import Layout from "../../components/Layout";
 const Final = ({ address }) => {
   const [index, setIndex] = useState("");
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
-    Router.replaceRoute(
-      `/tenders/${address}/final/${index}`
-    );
+    Router.replaceRoute(`/tenders/${address}/final/${index}`);
   };
   return (
     <Layout>
@@ -21,7 +19,7 @@ const Final = ({ address }) => {
           <label>Index of the bid to be viewed</label>
           <Input
             value={index}
-            onChange={event => setIndex(event.target.value)}
+            onChange={(event) => setIndex(event.target.value)}
           />
         </Form.Field>
         <Button primary>Contribute!</Button>
@@ -30,7 +28,7 @@ const Final = ({ address }) => {
   );
 };
 
-export const getInitialProps = async (props) => {
+export const getServerSideProps = async (props) => {
   const { address } = props.query;
 
   return { address };

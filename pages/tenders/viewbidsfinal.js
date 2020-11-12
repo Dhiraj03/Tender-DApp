@@ -52,7 +52,7 @@ const BidDisplay = ({ bidAddress, bidAmount, description, address }) => {
   );
 };
 
-export const getInitialProps = (props) => {
+export const getServerSideProps = (props) => {
   const tender = Tender(props.query.address);
   const index = props.query.index;
   const bid = await tender.methods.getBidSummary(index).call();

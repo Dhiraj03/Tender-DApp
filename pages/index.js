@@ -5,12 +5,11 @@ import { Link } from "../routes";
 import Layout from "../components/Layout";
 
 const TenderIndex = ({ tenders }) => {
-
   /*Creates a array containing all relevant attributes of tender cards
     to be displayed
   */
   const renderTenders = () => {
-    const items = tenders.map(address => {
+    const items = tenders.map((address) => {
       return {
         header: address,
         description: (
@@ -18,7 +17,7 @@ const TenderIndex = ({ tenders }) => {
             <a>View Tender</a>
           </Link>
         ),
-        fluid: true
+        fluid: true,
       };
     });
     return <Card.Group items={items} />;
@@ -44,9 +43,10 @@ const TenderIndex = ({ tenders }) => {
   );
 };
 
-export const getInitialProps = async () => {
+export const getServerSideProps = async () => {
   const tenders = await factory.methods.getDeployedTenders().call();
-  return { tenders: tenders };
+  console.log(tenders);
+  return { props: { tenders } };
 };
 
 export default TenderIndex;
