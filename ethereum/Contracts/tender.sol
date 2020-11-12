@@ -60,6 +60,12 @@ contract Tender{
         _;
     }
 
+    modifier checkAmount(uint index, uint amount)
+    {
+        require(bids[index].bidAmount <= amount);
+        _;
+    }
+
 
     function Tender(string memory inputDescription, address creator) public
     {
@@ -98,10 +104,11 @@ contract Tender{
     // }
 
     
-    function awardTender(uint index) public  restricted checkOngoing {
+    function awardTender(uint index) public payable restricted checkOngoing checkAmount(index, msg.value){
         winner = bids[index];
         winIndex = index;
         winner.bidder.transfer(winner.bidAmount);
+        msg.sender.transfer(this.balance);
         tenderState = State.CONCLUDED;   
     }
 

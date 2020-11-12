@@ -8,13 +8,7 @@ import { Router } from "../../routes";
 import { Link } from "../../routes";
 import { useRouter } from "next/router";
 
-const TenderShow = ({
-  isComplete,
-  address,
-  manager,
-  description,
-  count,
-}) => {
+const TenderShow = ({ isComplete, address, manager, description, count }) => {
   const router = useRouter();
   const [state, setState] = useState({
     value: "",
@@ -24,14 +18,13 @@ const TenderShow = ({
   });
 
   const onSubmit = async (event) => {
-    
     event.preventDefault();
     const tender = Tender(address);
     setState({ ...state, loading: true });
     try {
       const accounts = await web3.eth.getAccounts();
       await tender.methods.verifyManager().send({
-        from: accounts[0]
+        from: accounts[0],
       });
       router.push(`/tenders/${address}/viewbids/${count}`);
     } catch (err) {
@@ -116,14 +109,20 @@ const TenderShow = ({
 export const getServerSideProps = async (props) => {
   const tender = Tender(props.query.address);
   const summary = await tender.methods.getTenderDetails().call();
+  const status = await tender.methods.getTenderState().call();
+  var isComplete;
+  if (status === "Ongoing") isComplete = false;
+  else isComplete = true;
   console.log(summary);
   // const isComplete = await tender.methods.complete().call();
   return {
-    props : {address: props.query.address,
-    description: summary[0],
-    manager: summary[1],
-    count: summary[2],
-    isComplete: false}
+    props: {
+      address: props.query.address,
+      description: summary[0],
+      manager: summary[1],
+      count: summary[2],
+      isComplete: isComplete,
+    },
   };
 };
 

@@ -20,7 +20,7 @@ const FinalizeBid = ({ address }) => {
     try {
       const accounts = await web3.eth.getAccounts();
 
-      await tender.methods.finalizeBid(state.index).send({
+      await tender.methods.awardTender(state.index).send({
         from: accounts[0],
         value: web3.utils.toWei(state.value, "ether"),
       });
@@ -35,7 +35,7 @@ const FinalizeBid = ({ address }) => {
     <Layout>
       <Form onSubmit={onSubmit} error={!!state.errorMessage}>
         <Form.Field>
-          <label>Amount to contribute</label>
+          <label>Amount to be paid to the winner (Please enter the bid amount of the chosen bid)</label>
           <Input
             label="ether"
             labelPosition="right"
@@ -66,7 +66,7 @@ const FinalizeBid = ({ address }) => {
 export const getServerSideProps = async (props) => {
   const { address } = props.query;
 
-  return { address };
+return { props : {address} };
 };
 
 export default FinalizeBid;
