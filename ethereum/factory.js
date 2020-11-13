@@ -3,7 +3,7 @@ import TenderFactory from "./build/tenderFactory.json";
 
 const instance = new web3.eth.Contract(
   JSON.parse(TenderFactory.interface),
-  "0x1277cE20ca8629B3f4d17b89a1F2105727aDdBf3"
+  "<ADDRESS_OF_DEPLOYED_TENDER_FACTORY>"
 );
 
 export default instance;
