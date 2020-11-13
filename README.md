@@ -1,0 +1,20 @@
+# Tender-DApp
+A smart contract built on the Ethereum network, using Solidity, to decrease corruption and bias, and increase transparency in the tender process.
+
+## Steps to Run
+1. Install the MetaMask wallet extension on your browser (available for Firefox and Google Chrome) and create an account. Note down the 12-word seed phrase
+and enter it in the ethereum/deploy.js file.
+
+2. Create two accounts on the Ropsten network and get some ETH (not real ETH, since its a testnet) using  Ropsten ETH faucets (get atleast 2 accounts with ETH) - (https://faucet.ropsten.be/) and (https://faucet.dimensions.network/). 
+
+3. Register an account on [Infura] (https://infura.io/) and create a new project - get the Ropsten URL from the 'Settings' Page and copy it into the instantiation of Web3
+in ethereum/web3.js and ethereum/deploy.js.
+
+4. Run the compilation script in order to compile the smart contracts and output (node compile.js)
+the JSON interface into the build directory (two files - tender and tenderFactory will be created)
+
+5. Run the deployment script in order to deploy the smart contract to the Ethereum blockchain (node deploy.js)
+
+6. After deploying the tenderFactory contract, update the contract address in the ethereum/factory.js 
+
+7. Run the server using 'npm start' command and go to http://localhost:3000 to use the application.
