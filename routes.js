@@ -7,5 +7,5 @@ routes
   .add("/tenders/:address/viewbids/:count", "/tenders/viewbids")
   .add("/tenders/:address/finalize", "/tenders/finalize")
   .add("/tenders/:address/finalBid", "/tenders/final")
-  .add("/tenders/:address/final/:index","/tenders/viewbidsfinal");
+  .add("/tenders/:address/final/:count","/tenders/viewbidsfinal");
 module.exports = routes;

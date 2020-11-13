@@ -2,11 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tenders/bidForm": "pages/tenders/bidForm.js",
-  "/tenders/viewbids": "pages/tenders/viewbids.js",
   "/tenders/show": "pages/tenders/show.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/tenders/finalize": "pages/tenders/finalize.js",
-  "/": "pages/index.js",
-  "/tenders/new": "pages/tenders/new.js"
-}
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"

@@ -5,29 +5,18 @@ import { Card, Grid, Button } from "semantic-ui-react";
 import web3 from "../../ethereum/web3";
 import { Link } from "../../routes";
 
-const BidDisplay = ({ bidAddress, bidAmount, description, address }) => {
+const BidDisplay = ({address, bids}) => {
 
   const renderCards = () => {
-    const items = [
-      {
-        header: bidAddress,
-        meta: "Address of the bidder.",
-        description: "The unique address of the bidder.",
-        style: { overflowWrap: "break-word" }
-      },
-      {
-        header: bidAmount,
-        meta: "Bid Amount",
-        description: "The price of the bid made by the bidder."
-      },
-      {
-        header: description,
-        meta: "Description",
-        description: "Proposal of the bidder."
-      }
-    ];
-    return <Card.Group items={items} />;
-  };
+    const items = bids.map((bid) => {
+        return {
+          header: 'Bid Amount:   ' + bid.bidAmount,
+          description: 'Bid Address:   ' + bid.bidAddress,
+          fluid: true,
+        };
+      });
+      return <Card.Group items={items} />;
+    };
 
 
   return (
@@ -52,14 +41,26 @@ const BidDisplay = ({ bidAddress, bidAmount, description, address }) => {
   );
 };
 
-export const getServerSideProps = (props) => {
+export const getServerSideProps = async (props) => {
   const tender = Tender(props.query.address);
-  const index = props.query.index;
-  const bid = await tender.methods.getBidSummary(index).call();
+  console.log(props.query.count);
+  const bids = []
+  var i;
+  for (i = 1; i <= props.query.count; i++)
+  {
+    const bid = await tender.methods.showBid(i).call();
+    bids.push({
+      bid: bid[2],
+      bidAmount: bid[1],
+      bidAddress: bid[0]
+    });
+    console.log(bid);
+  }
   return {
-    bidAddress: bid[0],
-    bidAmount: bid[1],
-    description: bid[2]
+    props: {
+      adddress: props.query.address,
+      bids: bids
+    }
   };
 };
 

@@ -14,11 +14,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -34,31 +29,9 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/next/dist/pages/_error.js"
     ],
-    "/tenders/bidForm": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/tenders/bidForm.js"
-    ],
-    "/tenders/finalize": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/tenders/finalize.js"
-    ],
-    "/tenders/new": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/tenders/new.js"
-    ],
     "/tenders/show": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/tenders/show.js"
     ],
-    "/tenders/viewbids": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/tenders/viewbids.js"
-    ]
-  },
-  "ampFirstPages": []
-}
+    "/tenders/viewbidsfin

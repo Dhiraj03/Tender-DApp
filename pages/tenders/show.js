@@ -109,6 +109,15 @@ const TenderShow = ({
             </a>
           </Link>
         </Grid.Column>
+        <Grid.Column width={4}>
+          <Link route={`/tenders/${address}/final/${count}`}>
+            <a>
+              <Button disabled={!isComplete} primary>
+                View the final bids!
+              </Button>
+            </a>
+          </Link>
+        </Grid.Column>
         <Grid.Row>{winnerAddress && winnerAddress}</Grid.Row>
       </Grid>
     </Layout>
