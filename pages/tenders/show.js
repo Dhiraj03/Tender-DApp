@@ -8,7 +8,16 @@ import { Router } from "../../routes";
 import { Link } from "../../routes";
 import { useRouter } from "next/router";
 
-const TenderShow = ({ isComplete, address, manager, description, count }) => {
+const TenderShow = ({
+  isComplete,
+  address,
+  manager,
+  description,
+  count,
+  winnerAddress,
+  winnerBidAmount,
+  winnerBid,
+}) => {
   const router = useRouter();
   const [state, setState] = useState({
     value: "",
@@ -75,7 +84,7 @@ const TenderShow = ({ isComplete, address, manager, description, count }) => {
           )}
           <Button
             onClick={onSubmit}
-            disabled={isComplete}
+            disabled={isComplete || count == 0}
             primary
             loading={state.loading}
           >
@@ -100,7 +109,7 @@ const TenderShow = ({ isComplete, address, manager, description, count }) => {
             </a>
           </Link>
         </Grid.Column>
-        <Grid.Row></Grid.Row>
+        <Grid.Row>{winnerAddress && winnerAddress}</Grid.Row>
       </Grid>
     </Layout>
   );
@@ -110,9 +119,18 @@ export const getServerSideProps = async (props) => {
   const tender = Tender(props.query.address);
   const summary = await tender.methods.getTenderDetails().call();
   const status = await tender.methods.getTenderState().call();
+  // const numberOfBids = await tender.methods.numberOfBids().call();
+  // console.log(numberOfBids);
   var isComplete;
   if (status === "Ongoing") isComplete = false;
   else isComplete = true;
+
+  var winIndex, winner;
+  if (isComplete)
+  {
+    winner = await tender.methods.winner().call();
+  }
+
   console.log(summary);
   // const isComplete = await tender.methods.complete().call();
   return {
@@ -122,6 +140,9 @@ export const getServerSideProps = async (props) => {
       manager: summary[1],
       count: summary[2],
       isComplete: isComplete,
+      winnerAddress: isComplete ? winner.bidder : null,
+      winnerBidAmount: isComplete ? winner.bidAmount : null,
+      winnerBid: isComplete ? winner.bid : null,
     },
   };
 };
