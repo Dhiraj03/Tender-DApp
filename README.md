@@ -1,30 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+1. Install the MetaMask wallet extension on your browser (available for Firefox and Google Chrome) and create an account. Note down the 12-word seed phrase
+and enter it in the ethereum/deploy.js file.
 
-## Getting Started
+2. Create two accounts on the Ropsten network and get some ETH (not real ETH, since its a testnet) using  Ropsten ETH faucets (get atleast 2 accounts with ETH) - (https://faucet.ropsten.be/) and (https://faucet.dimensions.network/). 
 
-First, run the development server:
+3. Register an account on [Infura](https://infura.io/) and create a new project - get the Ropsten URL from the 'Settings' Page and copy it into the instantiation of Web3
+in ethereum/web3.js and ethereum/deploy.js.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+4. Run the compilation script in order to compile the smart contracts and output (node compile.js)
+the JSON interface into the build directory (two files - tender and tenderFactory will be created)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Run the deployment script in order to deploy the smart contract to the Ethereum blockchain (node deploy.js)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+6. After deploying the tenderFactory contract, update the contract address in the ethereum/factory.js (the new value is displayed on the terminal when deplyment script is run)
 
-## Learn More
+7. Run the server using 'npm start' command and go to http://localhost:3000 to use the application
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
