@@ -24,14 +24,16 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/next/dist/pages/_error": [
+    "/tenders/[address]/final/[index]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
+      "static/chunks/pages/tenders/[address]/final/[index].js"
     ],
-    "/tenders/show": [
+    "/tenders/new": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/tenders/show.js"
-    ],
-    "/tenders/viewbidsfin
+      "static/chunks/pages/tenders/new.js"
+    ]
+  },
+  "ampFirstPages": []
+}

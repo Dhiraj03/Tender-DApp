@@ -1,13 +1,32 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
-import { Link } from "../routes";
+import { CommandBar } from '@fluentui/react';
 
-export default () => {
+const Header = ({ theme, setTheme }) => {
   return (
-    <Menu style={{ marginTop: "10px" }}>
-      <Link route="/">
-        <a className="item">Tender 2.0</a>
-      </Link>
-    </Menu>
+    <CommandBar
+      style={{ borderBottom: '1px solid grey' }}
+      items={[
+        {
+          key: 'home',
+          text: 'Tender 2.0',
+          href: '/',
+        }
+      ]}
+      farItems={[
+        {
+          key: 'newTender',
+          text: 'Create a Tender',
+          iconProps: { iconName: 'Add' },
+          href: '/tenders/new',
+        },
+        {
+          key: 'theme',
+          iconProps: { iconName: theme !== 'light' ? 'Sunny' : 'ClearNight' },
+          onClick: () => { setTheme(theme === 'light' ? 'dark' : 'light'); }
+        }
+      ]}
+    />
   );
 };
+
+export default Header;

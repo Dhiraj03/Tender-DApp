@@ -1,6 +1,7 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tenders/show": "pages/tenders/show.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/_error": "pages/_error.js",
+  "/tenders/[address]/final/[index]": "pages/tenders/[address]/final/[index].js",
+  "/tenders/new": "pages/tenders/new.js"
+}

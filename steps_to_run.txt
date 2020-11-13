@@ -14,3 +14,18 @@ the JSON interface into the build directory (two files - tender and tenderFactor
 6. After deploying the tenderFactory contract, update the contract address in the ethereum/factory.js 
 
 7. Run the server using 'npm start' command and go to http://localhost:3000 to use the application
+
+
+
+"web3-providers-ws": "^1.0.0-beta.35",
+
+"web3-providers-ws": {
+"version": "1.0.0-beta.35",
+"resolved": "https://registry.npmjs.org/web3-providers-ws/-/web3-providers-ws-1.0.0-beta.35.tgz",
+"integrity": "sha512-Cx64NgDStynKaUGDIIOfaCd0fZusL8h5avKTkdTjUu2aHhFJhZoVBGVLhoDtUaqZGWIZGcBJOoVf2JkGUOjDRQ==",
+"requires": {
+    "underscore": "1.8.3",
+    "web3-core-helpers": "1.0.0-beta.35",
+    "websocket": "websocket@git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible"
+}
+},

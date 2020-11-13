@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
-import { Form, Button, Input, Message } from "semantic-ui-react";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
-import { Router } from "../../routes";
+import { Stack, Text, PrimaryButton, TextField } from '@fluentui/react';
+import Link from "next/link";
+import { useRouter } from 'next/router';
+import { FaArrowLeft } from "react-icons/fa";
 
 const TenderNew = () => {
+  const router = useRouter();
+
   const [state, setState] = useState({
     description: "",
     errorMessage: "",
@@ -22,8 +26,7 @@ const TenderNew = () => {
         .send({
           from: accounts[0]
         });
-
-      Router.pushRoute("/");
+        router.push("/");
     } catch (err) {
       setState({ ...state, errorMessage: err.message });
     }
@@ -32,22 +35,32 @@ const TenderNew = () => {
 
   return (
     <Layout>
-      <h3>Float A Tender!</h3>
-      <Form onSubmit={onSubmit} error={!!state.errorMessage}>
-        <Form.Field>
-          <label>Requirements and description of the project</label>
-          <Input
-            value={state.description}
-            onChange={event =>
-              setState({ ...state, description: event.target.value })
-            }
-          />
-        </Form.Field>
-        <Message error header="Oops!" content={state.errorMessage} />
-        <Button loading={state.loading} primary>
-          Create!
-        </Button>
-      </Form>
+
+      <Text block variant="xxLargePlus" style={{ marginTop: '25px' }}>Float A Tender!</Text>
+      <Link href={`/`}>
+        <Text block style={{ fontWeight: 'bold', marginTop: '15px', cursor: 'pointer' }}>
+          <FaArrowLeft style={{ marginRight: '5px' }}/> <span style={{ fontSize: '1.25rem' }}>Go Back</span>
+        </Text>
+      </Link>
+
+      <Stack style={{ margin: '15px 0px' }}>
+        <TextField
+          styles={{ root: { width: 450 } }}
+          label="Requirements and description of the project"
+          value={state.description}
+          multiline
+          rows={5}
+          onChange={(event) =>
+            setState({ ...state, description: event.target.value })
+          }
+        />
+      </Stack>
+
+      <PrimaryButton style={{width: '350px'}} disabled={state.loading} onClick={onSubmit}>
+        {state.loading ? 'Loading...' : 'Create Tender!'}
+      </PrimaryButton>
+
+      {state.errorMessage && <Text block className="errorText">Error: {state.errorMessage}</Text>}
     </Layout>
   );
 };
