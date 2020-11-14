@@ -1,3 +1,13 @@
+## What is Tender 2.0?
+Tender 2.0 is a fair and transparent Blockchain-based tendering framework that aims to address various challenges being faced by the tendering system in-place currently.
+
+## What are Tenders?
+Tenders, also known as Public Procurement, is a core government function that allows various governmental organizations to provide essential products and services to citizens by outsourcing the said production/service to an external organization. The challenges faced by the current system in-place are:
+1. The lack of trust and transparency among the stakeholders
+2. Corruption and bias towards certain parties
+3. Collusiom between the bidders
+
+## Steps to run
 1. Install the MetaMask wallet extension on your browser (available for Firefox and Google Chrome) and create an account. Note down the 12-word seed phrase
 and enter it in the ethereum/deploy.js file.
 
