@@ -52,7 +52,7 @@ const TenderShow = ({
     <Layout>
       <div style={{ marginTop: "25px", marginBottom: "40px" }}>
         <IoIosPaper size="3rem" style={{ marginRight: "10px" }} />
-        <Text style={{ fontSize: "4rem", fontWeight: 500 }}>Campaign Show</Text>
+        <Text style={{ fontSize: "4rem", fontWeight: 500 }}>Tender Dashboard</Text>
 
         <Text
           block
