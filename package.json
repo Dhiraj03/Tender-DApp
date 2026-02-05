@@ -120,7 +120,7 @@
     "timed-out": "^4.0.1",
     "to-buffer": "^1.1.1",
     "toidentifier": "^1.0.0",
-    "truffle-hdwallet-provider": "^0.0.3",
+    "truffle-hdwallet-provider": "^1.0.17",
     "type-is": "^1.6.18",
     "typedarray-to-buffer": "^3.1.5",
     "ultron": "^1.1.1",
