@@ -155,7 +155,7 @@
     "yaeti": "^0.0.6"
   },
   "devDependencies": {
-    "mocha": "^6.2.2"
+    "mocha": "^11.7.5"
   },
   "scripts": {
     "test": "mocha",
